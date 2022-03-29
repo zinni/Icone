@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1647792711 source:d:\projetos\c\icone\icone.c
+	"icone.h"
+
+1647715724 d:\projetos\c\icone\icone.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1647797452 source:d:\projetos\c\icone\main.c
+	<stdio.h>
+	<stdlib.h>
+	"icone.h"
+
+1648440151 source:d:\faculdade\icone\icone\icone.c
+	"icone.h"
+
+1648440151 d:\faculdade\icone\icone\icone.h
+	<stdio.h>
+	<stdlib.h>
+
+1648440946 source:d:\faculdade\icone\icone\main.c
+	"intro.h"
+	"menu.h"
+
+1648441263 source:d:\faculdade\icone\icone\entidade.c
+	"icone.h"
+	"entidade.h"
+
+1648440703 d:\faculdade\icone\icone\entidade.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	<windows.h>
+
+1648440151 d:\faculdade\icone\icone\intro.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	<windows.h>
+
+1648440151 source:d:\faculdade\icone\icone\intro.c
+	"intro.h"
+
+1648440151 d:\faculdade\icone\icone\menu.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	<windows.h>
+
+1648440775 source:d:\faculdade\icone\icone\menu.c
+	"icone.h"
+	"menu.h"
+

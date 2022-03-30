@@ -55,3 +55,44 @@
 	"icone.h"
 	"menu.h"
 
+1648614725 source:d:\projetos\c\iconegithub\intro.c
+	"intro.h"
+
+1648614725 d:\projetos\c\iconegithub\intro.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	<windows.h>
+
+1648614725 source:d:\projetos\c\iconegithub\main.c
+	"intro.h"
+	"menu.h"
+
+1648614773 d:\projetos\c\iconegithub\menu.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	<windows.h>
+	"icone.h"
+	"entidade.h"
+
+1648614761 d:\projetos\c\iconegithub\icone.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1648614783 d:\projetos\c\iconegithub\entidade.h
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<locale.h>
+	<windows.h>
+
+1648614809 source:d:\projetos\c\iconegithub\icone.c
+	"icone.h"
+
+1648614818 source:d:\projetos\c\iconegithub\menu.c
+	"menu.h"
+

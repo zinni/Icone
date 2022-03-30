@@ -3,14 +3,37 @@
 #include <time.h>
 #include <locale.h>
 #include <windows.h>
+#define BLOCO 5
 
 #define MSG_SIZE 255
 
-Icone* criar_icone_randomico(Icone * ic);
+
+typedef struct _icone_arr {
+
+    Icone **arr;
+    int tam;
+    int blocos;
+
+} IconeArr;
+
+
+void verificar_simetria(IconeArr *IconeArr);
+
+Icone* criar_icone_especi();
+
+Icone* buscar_icone(int indice, IconeArr *iconeArr);
+
+void icone_salva(IconeArr *iconeArr, Icone *ic);
+
+void imprimir_icones(IconeArr *iconeArr);
+
+IconeArr* inicArr();
+
+Icone* criar_icone_randomico();
 
 Icone* icone_duplicado(Icone *ic);
 
-void icone_simetrico(Icone *ic);
+int icone_simetrico(Icone *ic);
 
 int icone_simetricoVertical(Icone *ic);
 

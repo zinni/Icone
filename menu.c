@@ -1,4 +1,3 @@
-#include "icone.h"
 #include "menu.h"
 
 int menu() {
@@ -11,7 +10,7 @@ int menu() {
     printf("\n-------------------------------------------------");
     SetConsoleTextAttribute(hConsole, 11);
     printf("\n\n\t 1. Criar");
-    printf("\n\t 2. Mostras Icone");
+    printf("\n\t 2. Mostrar Icones");
     printf("\n\t 3. Verificar simetria.");
     printf("\n\t 4. Reflexo no espelho.");
     printf("\n\t 5. Rotacionar.");
@@ -25,18 +24,31 @@ int menu() {
 
 int main_menu(void) {
     system("cls");
+
+    //Iniciando IconeArr struct que armazena o array de icones
+    IconeArr *iconeArr = inicArr();
+
     int opcao_menu = -1;
     while (opcao_menu != 0) {
         opcao_menu = menu();
         switch(opcao_menu) {
             case 1:
-                main_menu1();
+                main_menu1(iconeArr);
+                break;
             case 2:
-                printf(setlocale( LC_CTYPE, NULL ));
+                //printf(setlocale( LC_CTYPE, NULL ));
+                system("cls");
+                imprimir_icones(iconeArr);
+                break;
+            case 3:
+                //printf(setlocale( LC_CTYPE, NULL ));
+                system("cls");
+                verificar_simetria(iconeArr);
                 break;
             case 0:
                 printf("\n\n\nSaindo...\n\n");
                 exit(0);
+                break;
             default:
                 imprime_erro("Escolha inválida tente novamente");
                 break;
@@ -64,18 +76,22 @@ int menu1(){
     return opcao;
 }
 
-int main_menu1(void) {
+int main_menu1(IconeArr *iconeArr) {
     system("cls");
+    Icone *ic;
+
     int opcao_menu = -1;
     while (opcao_menu != 0) {
         opcao_menu = menu1();
         switch(opcao_menu) {
             case 1:
-                main_submenu1();
+                main_submenu1(iconeArr);
+                break;
             case 2:
+                ic = criar_icone_especi();
                 break;
             case 0:
-                main_menu();
+                system("cls");
                 break;
             default:
                 imprime_erro("Escolha inválida tente novamente");
@@ -101,27 +117,29 @@ int submenu1(){
     return opcao;
 }
 
-int main_submenu1(void) {
+int main_submenu1(IconeArr *iconeArr) {
     system("cls");
+
     Icone *ic;
-    criar_icone_randomico(ic);
-    //ic = icone_cria(16);
-    //icone_preenche_aleatorio(ic);
-    //icone_imprime(ic);
+    ic = criar_icone_randomico();
+
+
     int opcao_menu = -1;
-    while (opcao_menu != 0) {
+    while (opcao_menu != 0 && opcao_menu != 2) {
         opcao_menu = submenu1();
         switch(opcao_menu) {
             case 1:
                 system("cls");
-                criar_icone_randomico(ic);
-                //icone_imprime(ic);
+                icone_libera_memoria(ic);
+                ic = criar_icone_randomico();
                 break;
             case 2:
-                printf("%d", icone_tam(ic));
+                system("cls");
+                icone_salva(iconeArr, ic);
                 break;
             case 0:
-                main_menu1();
+                icone_libera_memoria(ic);
+                system("cls");
                 break;
             default:
                 imprime_erro("Escolha inválida tente novamente");

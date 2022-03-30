@@ -19,6 +19,14 @@ Icone* icone_cria(int tam){
 
 void icone_libera_memoria(Icone *ic){
 
+    int tam = ic->tamanho;
+
+    for(int i = 0; i < tam; i++){
+
+        free(ic->pixels[i]);
+    }
+
+    free(ic->pixels);
     free(ic);
 
 }

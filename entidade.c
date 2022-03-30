@@ -1,15 +1,72 @@
 #include "icone.h"
 #include "entidade.h"
 
-typedef struct _icone_arr {
-    int qtd;
-    Icone *arr;
-} IconeArr;
 
-Icone * criar_icone_randomico(Icone * ic) {
+//retorna um ponteiro da struct de IconeArr e verifica se ha memoria suficiente não tendo programa fecha
+IconeArr* inicArr(){
+
+    IconeArr *iconeArr = (IconeArr*)malloc(sizeof(IconeArr));
+
+    if(iconeArr == NULL){
+        printf("ERRO!Memoria insuficiente.\n\n");
+        system("pause");
+        exit(0);
+    }
+
+    iconeArr->arr = (Icone**)malloc(BLOCO * sizeof(Icone*));
+
+    if(iconeArr->arr == NULL){
+
+        printf("ERRO!Memoria insuficiente.\n\n");
+        system("pause");
+        exit(0);
+    }
+
+    iconeArr->tam = 0;
+    iconeArr->blocos = 1;
+
+    return iconeArr;
+}
+
+Icone* buscar_icone(int indice, IconeArr *iconeArr){
+
+    /*if(indice > iconeArr->tam){
+
+        return NULL;
+    }*/
+    return iconeArr->arr[indice];
+
+}
+
+void verificar_simetria(IconeArr *iconeArr){
+
+    int indice;
+
+    printf("Indice do icone-> ");
+
+    scanf("%d", &indice);
+
+    Icone *ic = buscar_icone(indice - 1, iconeArr);
+
+    if(icone_simetrico(ic) == 1){
+
+        printf("ICONE SIMETRICO");
+
+    }else{
+
+        printf("ICONE ASSIMETRICO");
+
+    }
+
+
+}
+
+
+Icone* criar_icone_randomico() {
     int tam;
     printf("\nEntre com o tamanho do ícone: ");
     scanf("%d", &tam);
+    Icone *ic;
     ic = icone_cria(tam);
     icone_preenche_aleatorio(ic);
     setlocale(LC_ALL, "C");
@@ -19,34 +76,113 @@ Icone * criar_icone_randomico(Icone * ic) {
     return ic;
 }
 
-void icone_salva(IconeArr* icones){
-    int *temp;
-    Icone icone;
-    if (icones->qtd > 0){
-        temp = (Icone *) realloc((icones->arr), sizeof(Icone) * (icones->qtd + 1));
-    } else {
-        temp = (Icone *) malloc(sizeof(Icone) * (icones->qtd + 1));
+Icone* criar_icone_especi() {
+    int tam;
+    printf("\nEntre com o tamanho do ícone: ");
+    scanf("%d", &tam);
+    Icone *ic = icone_cria(tam);
+    setlocale(LC_ALL, "C");
+
+    for(int i = 0; i < tam; i++){
+
+       for(int j = 0; j < tam ; j++){
+
+            int v;
+
+            do{
+                printf("Atribuir valor para o pixel[%d][%d]: ", i,j);
+                scanf("%d", &v);
+            }while(v < 0 || v > 1);
+
+            icone_atribui(ic , i, j, v);
+            system("cls");
+
+            printf("\n\n");
+            printf("\t--------PREVIEW--------\n\n");
+
+            icone_imprime(ic);
+
+            printf("\n\n");
+
+       }
+
     }
-    if(temp != NULL) {
-        icones->arr = temp;
-        icones->qtd++;
-    } else {
-        printf("Erro tentando realocar memoria para o novo icone.");
-    }
-    icones->arr[icones->qtd - 1] = icone;
+
+    printf("\n\n");
+    setlocale(LC_ALL, "Portuguese");
+    return ic;
 }
 
-void icone_simetrico(Icone *ic){
+void imprimir_icones(IconeArr *iconeArr){
+
+    setlocale(LC_ALL, "C");
+    int tam = iconeArr->tam;
+
+    for(int i = 0; i < tam; i++){
+
+        printf("%d) " , i + 1);
+        icone_imprime(iconeArr->arr[i]);
+        printf("\n\n");
+
+
+    }
+
+     setlocale(LC_ALL, "Portuguese");
+}
+
+void icone_salva(IconeArr *iconeArr, Icone *ic){
+
+    if(ic == NULL){
+        printf("Erro ao salvar icone.");
+        return;
+    }else{
+
+        int tam = iconeArr->tam;
+        int blocos = iconeArr->blocos;
+
+        if(tam ==  blocos * BLOCO){
+
+            iconeArr->blocos++;
+            iconeArr->arr = (Icone**)realloc(iconeArr->arr,blocos * BLOCO * sizeof(Icone*));
+
+        }
+
+        iconeArr->arr[tam] = ic;
+        iconeArr->tam++;
+
+        printf("Icone salvo com sucesso!");
+
+    }
+}
+
+void icone_deletar(int indice, IconeArr *iconeArr){
+
+    if(iconeArr->tam == 0){
+
+        printf("Não há icones salvos.");
+
+    }else{
+        icone_libera_memoria(iconeArr->arr[indice - 1]);
+        iconeArr->arr[indice] = iconeArr->arr[iconeArr->tam - 1];
+        iconeArr->tam--;
+
+        printf("Icone %d removido com sucesso!", indice);
+    }
+}
+
+
+int icone_simetrico(Icone *ic){
 
     int simetricoV = icone_simetricoVertical(ic);
     int simetricoH = icone_simetricoHorizontal(ic);
 
-    if(simetricoV == 1){
-        printf("Icone simetrico(vertical)");
-    }else if(simetricoH == 1){
-        printf("Icone simetrico(horizontal)");
+    if(simetricoV == 1 || simetricoH == 1){
+
+        return 1;
+
     }else{
-        printf("Icone assimetrico");
+
+        return 0;
     }
 }
 

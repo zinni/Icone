@@ -3,7 +3,7 @@
 
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
-    intro();
-    main_menu();
+    //intro();
+    menu_principal();
     return 0;
 }

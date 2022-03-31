@@ -1,6 +1,6 @@
 #include "menu.h"
 
-int menu() {
+int menuPrincipal() {
     HANDLE  hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int opcao;
@@ -22,7 +22,7 @@ int menu() {
     return opcao;
 }
 
-int main_menu(void) {
+int menu_principal(void) {
     system("cls");
 
     //Iniciando IconeArr struct que armazena o array de icones
@@ -30,18 +30,20 @@ int main_menu(void) {
 
     int opcao_menu = -1;
     while (opcao_menu != 0) {
-        opcao_menu = menu();
+        opcao_menu = menuPrincipal();
         switch(opcao_menu) {
             case 1:
-                main_menu1(iconeArr);
+                menu_criar(iconeArr);
                 break;
             case 2:
-                //printf(setlocale( LC_CTYPE, NULL ));
                 system("cls");
                 imprimir_icones(iconeArr);
                 break;
             case 3:
-                //printf(setlocale( LC_CTYPE, NULL ));
+                system("cls");
+                verificar_simetria(iconeArr);
+                break;
+            case 4:
                 system("cls");
                 verificar_simetria(iconeArr);
                 break;
@@ -57,7 +59,7 @@ int main_menu(void) {
     return 0;
 }
 
-int menu1(){
+int menuCriar(){
     HANDLE  hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -67,8 +69,8 @@ int menu1(){
     printf("\n\n        ESCOLHA A NATUREZA DO SEU ICONE");
     printf("\n-------------------------------------------------");
     SetConsoleTextAttribute(hConsole, 11);
-    printf("\n\n\t 1. Icone Randomizado");
-    printf("\n\t 2. Icone Manual - Vazio");
+    printf("\n\n\t 1. Icone aleatório.");
+    printf("\n\t 2. Icone do usuário.");
     printf("\n\t 0. Voltar ao menu principal");
     SetConsoleTextAttribute(hConsole, 3);
     printf("\n\n Entre com a opção desejada: ");
@@ -76,19 +78,19 @@ int menu1(){
     return opcao;
 }
 
-int main_menu1(IconeArr *iconeArr) {
+int menu_criar(IconeArr *iconeArr) {
     system("cls");
     Icone *ic;
 
     int opcao_menu = -1;
     while (opcao_menu != 0) {
-        opcao_menu = menu1();
+        opcao_menu = menuCriar();
         switch(opcao_menu) {
             case 1:
-                main_submenu1(iconeArr);
+                menu_criar_aleatorio(iconeArr);
                 break;
             case 2:
-                ic = criar_icone_especi();
+                menu_criar_usuario(iconeArr);
                 break;
             case 0:
                 system("cls");
@@ -101,7 +103,7 @@ int main_menu1(IconeArr *iconeArr) {
     return 1;
 }
 
-int submenu1(){
+int menuCriarOutro(){
     HANDLE  hConsole;
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -117,7 +119,7 @@ int submenu1(){
     return opcao;
 }
 
-int main_submenu1(IconeArr *iconeArr) {
+int menu_criar_aleatorio(IconeArr *iconeArr) {
     system("cls");
 
     Icone *ic;
@@ -126,7 +128,7 @@ int main_submenu1(IconeArr *iconeArr) {
 
     int opcao_menu = -1;
     while (opcao_menu != 0 && opcao_menu != 2) {
-        opcao_menu = submenu1();
+        opcao_menu = menuCriarOutro();
         switch(opcao_menu) {
             case 1:
                 system("cls");
@@ -148,3 +150,36 @@ int main_submenu1(IconeArr *iconeArr) {
     }
     return 1;
 }
+
+int menu_criar_usuario(IconeArr *iconeArr) {
+    system("cls");
+
+    Icone *ic;
+    ic = criar_icone_especi();
+
+
+    int opcao_menu = -1;
+    while (opcao_menu != 0 && opcao_menu != 2) {
+        opcao_menu = menuCriarOutro();
+        switch(opcao_menu) {
+            case 1:
+                system("cls");
+                icone_libera_memoria(ic);
+                ic = criar_icone_especi();
+                break;
+            case 2:
+                system("cls");
+                icone_salva(iconeArr, ic);
+                break;
+            case 0:
+                icone_libera_memoria(ic);
+                system("cls");
+                break;
+            default:
+                imprime_erro("Escolha inválida tente novamente");
+                break;
+        }
+    }
+    return 1;
+}
+

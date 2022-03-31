@@ -7,9 +7,10 @@
 #include "icone.h"
 #include "entidade.h"
 
-int menu();
-int menu1();
-int submenu1();
-int main_menu(void);
-int main_menu1(IconeArr *iconeArr);
-int main_submenu1(IconeArr *iconeArr);
+int menuPrincipal();
+int menu_principal(void);
+int menuCriar();
+int menu_criar(IconeArr *iconeArr);
+int menuCriarOutro();
+int menu_criar_usuario(IconeArr *iconeArr);
+int menu_criar_aleatorio(IconeArr *iconeArr);

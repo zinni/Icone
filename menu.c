@@ -222,7 +222,3 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
         }
     }
 }
-
-
-
-

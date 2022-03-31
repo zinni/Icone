@@ -169,9 +169,15 @@ Icone* criar_icone_randomico() {
     return ic;
 }
 
-Icone* criar_icone_especi() {
+Icone* criar_icone_especi(){
+
     int tam;
-    printf("\nEntre com o tamanho do ícone: ");
+
+    mudar_cor(1);
+    printf("\n\n              ICONE DO USUÁRIO");
+    printf("\n-------------------------------------------------");
+    mudar_cor(11);
+    printf("\n\nEntre com o tamanho do ícone: ");
     scanf("%d", &tam);
     Icone *ic = icone_cria(tam);
     setlocale(LC_ALL, "C");
@@ -183,7 +189,8 @@ Icone* criar_icone_especi() {
             int v;
 
             do{
-                printf("Atribuir valor para o pixel[%d][%d]: ", i,j);
+                printf("\nUse <1> para marcar e <0> para deixar vazio.");
+                printf("\nAtribuir valor para o pixel[%d][%d]: ", i,j);
                 scanf("%d", &v);
             }while(v < 0 || v > 1);
 

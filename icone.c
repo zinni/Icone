@@ -51,6 +51,7 @@ int icone_tam (Icone *ic){
     return tam;
 }
 
+
 void icone_preenche_aleatorio(Icone *ic){
 
     srand(time(NULL));

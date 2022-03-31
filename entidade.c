@@ -8,7 +8,7 @@ IconeArr* inicArr(){
     IconeArr *iconeArr = (IconeArr*)malloc(sizeof(IconeArr));
 
     if(iconeArr == NULL){
-        printf("ERRO!Memoria insuficiente.\n\n");
+        printf("ERRO!MEMORIA INSUFICIENTE, FECHE ALGUM PROCESSO E TENTE NOVAMENTE.\n\n");
         system("pause");
         exit(0);
     }
@@ -17,7 +17,7 @@ IconeArr* inicArr(){
 
     if(iconeArr->arr == NULL){
 
-        printf("ERRO!Memoria insuficiente.\n\n");
+        printf("ERRO!MEMORIA INSUFICIENTE, FECHE ALGUM PROCESSO E TENTE NOVAMENTE.\n\n");
         system("pause");
         exit(0);
     }
@@ -28,39 +28,132 @@ IconeArr* inicArr(){
     return iconeArr;
 }
 
+//retorna o icone se encontrar um com o indice informado , se não ele retorna um NULL
 Icone* buscar_icone(int indice, IconeArr *iconeArr){
 
-    /*if(indice > iconeArr->tam){
+    int tam = iconeArr->tam;
 
+    //tem verificação que eu podia ter deixado somente na função que o chama mas prefiri por aqui tbm
+    if(tam == 0 || (indice >= tam || indice < 0)){
         return NULL;
-    }*/
+    }
+
     return iconeArr->arr[indice];
 
 }
 
 void verificar_simetria(IconeArr *iconeArr){
 
-    int indice;
+    int codigo;
 
-    printf("Indice do icone-> ");
+    printf("Codigo do icone-> ");
 
-    scanf("%d", &indice);
+    scanf("%d", &codigo);
 
-    Icone *ic = buscar_icone(indice - 1, iconeArr);
+    Icone *ic = buscar_icone(codigo - 1, iconeArr);
 
-    if(icone_simetrico(ic) == 1){
+    if(ic == NULL){
+         system("cls");
+         imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+    }else{
 
-        printf("ICONE SIMETRICO");
+        if(icone_simetrico(ic) == 1){
+
+            printf("ICONE SIMETRICO.");
+
+        }else{
+
+            printf("ICONE ASSIMETRICO.");
+
+        }
+    }
+
+}
+
+//a variavel tipo é usada para indicar se é uma reflexão horizontal ou vertical
+void icone_reflexao(IconeArr *iconeArr, int tipo){
+
+
+    int codigo;
+    system("cls");
+    printf("Codigo do icone-> ");
+    scanf("%d", &codigo);
+
+    Icone *ic = buscar_icone(codigo - 1, iconeArr);
+
+    //printf("%d" , ic->tamanho);
+    if(ic == NULL){
+
+        system("cls");
+        imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
 
     }else{
 
-        printf("ICONE ASSIMETRICO");
+        Icone *newIc;
+
+        switch(tipo){
+            case 1:
+            newIc = reflexaoVertical(ic);
+            break;
+
+            case 2:
+            newIc = reflexaoHorizontal(ic);
+            break;
+        }
+
+        system("cls");
+        setlocale(LC_ALL, "C");
+        icone_imprime(newIc);
+        setlocale(LC_ALL, "Portuguese");
+
+        int opcao = -1;
+
+        while(opcao < 0 || opcao > 2){
+
+            mudar_cor(11);
+            printf("\n\n\t 1. Salvar como um novo icone baseado nessa reflexão.");
+            printf("\n\t 2. Salvar substituindo o icone refletido.");
+            printf("\n\t 0. Voltar ao menu anterior.");
+
+            mudar_cor(3);
+            printf("\n\n Entre com a opção desejada: ");
+            scanf("%d", &opcao);
+
+            switch(opcao){
+
+                case 1:
+                    icone_salva(iconeArr, newIc);
+                break;
+
+                case 2:
+                    substituir_icone(iconeArr, codigo - 1, newIc);
+                break;
+
+                case 0:
+                    system("cls");
+                break;
+
+                default:
+                    imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                break;
+
+            }
+
+        }
 
     }
 
 
 }
 
+void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc){
+
+
+    icone_libera_memoria(iconeArr->arr[indice]);
+
+    iconeArr->arr[indice] = newIc;
+
+}
 
 Icone* criar_icone_randomico() {
     int tam;
@@ -115,19 +208,28 @@ Icone* criar_icone_especi() {
 
 void imprimir_icones(IconeArr *iconeArr){
 
-    setlocale(LC_ALL, "C");
+
     int tam = iconeArr->tam;
 
-    for(int i = 0; i < tam; i++){
+    if(tam <= 0){
 
-        printf("%d) " , i + 1);
-        icone_imprime(iconeArr->arr[i]);
-        printf("\n\n");
+        imprime_erro("NÃO HA ICONES CADASTRADOS.");
+
+    }else{
+        setlocale(LC_ALL, "C");
+
+        for(int i = 0; i < tam; i++){
+
+            printf("%d) " , i + 1);
+            icone_imprime(iconeArr->arr[i]);
+            printf("\n\n");
 
 
+        }
+
+        setlocale(LC_ALL, "Portuguese");
     }
 
-     setlocale(LC_ALL, "Portuguese");
 }
 
 void icone_salva(IconeArr *iconeArr, Icone *ic){
@@ -170,7 +272,6 @@ void icone_deletar(int indice, IconeArr *iconeArr){
     }
 }
 
-
 int icone_simetrico(Icone *ic){
 
     int simetricoV = icone_simetricoVertical(ic);
@@ -185,7 +286,6 @@ int icone_simetrico(Icone *ic){
         return 0;
     }
 }
-
 
 int icone_simetricoVertical(Icone* ic){
 
@@ -229,7 +329,7 @@ int icone_simetricoHorizontal(Icone* ic){
 
 }
 
-Icone* reflexaoVertical(Icone* ic){
+Icone* reflexaoHorizontal(Icone* ic){
 
     int tam = icone_tam(ic);
     Icone *icon = icone_cria(tam);
@@ -244,7 +344,7 @@ Icone* reflexaoVertical(Icone* ic){
     return icon;
 }
 
-Icone* reflexaoHorizontal(Icone* ic){
+Icone* reflexaoVertical(Icone* ic){
 
     int tam = icone_tam(ic);
     Icone *icon = icone_cria(tam);
@@ -260,7 +360,6 @@ Icone* reflexaoHorizontal(Icone* ic){
     }
     return icon;
 }
-
 
 Icone* icone_duplicado(Icone *ic){
 
@@ -296,4 +395,19 @@ void aperte_enter(){
     printf("\nPressione ENTER para continuar.");
     getchar();
     getchar();
+}
+
+void mudar_cor(int cor){
+
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, cor);
+}
+
+void cor_padrao(){
+
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 7);
+
 }

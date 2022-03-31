@@ -8,9 +8,10 @@
 #include "entidade.h"
 
 int menuPrincipal();
-int menu_principal(void);
+void menu_principal(void);
 int menuCriar();
-int menu_criar(IconeArr *iconeArr);
+void menu_criar(IconeArr *iconeArr);
 int menuCriarOutro();
-int menu_criar_usuario(IconeArr *iconeArr);
-int menu_criar_aleatorio(IconeArr *iconeArr);
+void menu_criar_usuario(IconeArr *iconeArr);
+void menu_criar_aleatorio(IconeArr *iconeArr);
+void menu_criar_reflexao(IconeArr *iconeArr);

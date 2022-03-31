@@ -17,6 +17,10 @@ typedef struct _icone_arr {
 } IconeArr;
 
 
+void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc);
+
+void icone_reflexao(IconeArr *iconeArr, int tipo);
+
 void verificar_simetria(IconeArr *IconeArr);
 
 Icone* criar_icone_especi();
@@ -48,3 +52,7 @@ void aperte_enter();
 void imprime_sucesso(char sucesso[MSG_SIZE]);
 
 void imprime_erro(char erro[MSG_SIZE]);
+
+void mudar_cor(int cor);
+
+void cor_padrao();

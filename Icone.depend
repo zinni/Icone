@@ -69,7 +69,7 @@
 	"intro.h"
 	"menu.h"
 
-1648740845 d:\projetos\c\iconegithub\menu.h
+1648847858 d:\projetos\c\iconegithub\menu.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -78,22 +78,23 @@
 	"icone.h"
 	"entidade.h"
 
-1648614761 d:\projetos\c\iconegithub\icone.h
+1648828375 d:\projetos\c\iconegithub\icone.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
+	<locale.h>
 
-1648744102 d:\projetos\c\iconegithub\entidade.h
+1648827712 d:\projetos\c\iconegithub\entidade.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<locale.h>
 	<windows.h>
 
-1648708270 source:d:\projetos\c\iconegithub\icone.c
+1648828272 source:d:\projetos\c\iconegithub\icone.c
 	"icone.h"
 
-1648746736 source:d:\projetos\c\iconegithub\menu.c
+1648847820 source:d:\projetos\c\iconegithub\menu.c
 	"menu.h"
 
 1648767430 source:c:\users\alice\documents\github\icone\entidade.c
@@ -141,7 +142,7 @@
 1648768113 source:c:\users\alice\documents\github\icone\menu.c
 	"menu.h"
 
-1648746584 source:d:\projetos\c\iconegithub\entidade.c
+1648829212 source:d:\projetos\c\iconegithub\entidade.c
 	"icone.h"
 	"entidade.h"
 

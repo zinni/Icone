@@ -72,6 +72,8 @@ void icone_imprime(Icone *ic){
 
     int tam = ic->tamanho;
 
+    setlocale(LC_ALL, "C");
+
     for(int i = 0; i < tam ; i++){
 
         printf("\t\t|");
@@ -91,6 +93,8 @@ void icone_imprime(Icone *ic){
         }
         printf("|\n");
     }
+
+    setlocale(LC_ALL, "Portuguese");
 
 }
 

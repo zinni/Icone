@@ -70,81 +70,34 @@ void verificar_simetria(IconeArr *iconeArr){
 
 }
 
-//a variavel tipo é usada para indicar se é uma reflexão horizontal ou vertical
-void icone_reflexao(IconeArr *iconeArr, int tipo){
+//a variavel tipo é usada para indicar se é uma reflexão horizontal ou vertical/ indice = codigo - 1
+Icone* icone_reflexao(IconeArr *iconeArr, int tipo, int indice){
 
+    Icone *ic = buscar_icone(indice, iconeArr);
 
-    int codigo;
-    system("cls");
-    printf("Codigo do icone-> ");
-    scanf("%d", &codigo);
-
-    Icone *ic = buscar_icone(codigo - 1, iconeArr);
-
-    //printf("%d" , ic->tamanho);
     if(ic == NULL){
 
-        system("cls");
-        imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
 
-    }else{
-
-        Icone *newIc;
-
-        switch(tipo){
-            case 1:
-            newIc = reflexaoVertical(ic);
-            break;
-
-            case 2:
-            newIc = reflexaoHorizontal(ic);
-            break;
-        }
-
-        system("cls");
-        setlocale(LC_ALL, "C");
-        icone_imprime(newIc);
-        setlocale(LC_ALL, "Portuguese");
-
-        int opcao = -1;
-
-        while(opcao < 0 || opcao > 2){
-
-            mudar_cor(11);
-            printf("\n\n\t 1. Salvar como um novo icone baseado nessa reflexão.");
-            printf("\n\t 2. Salvar substituindo o icone refletido.");
-            printf("\n\t 0. Voltar ao menu anterior.");
-
-            mudar_cor(3);
-            printf("\n\n Entre com a opção desejada: ");
-            scanf("%d", &opcao);
-
-            switch(opcao){
-
-                case 1:
-                    icone_salva(iconeArr, newIc);
-                break;
-
-                case 2:
-                    substituir_icone(iconeArr, codigo - 1, newIc);
-                break;
-
-                case 0:
-                    system("cls");
-                break;
-
-                default:
-                    imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
-                break;
-
-            }
-
-        }
+        return ic;
 
     }
 
+    Icone *newIc;
+
+    switch(tipo){
+        case 1:
+            newIc = reflexaoVertical(ic);
+        break;
+
+        case 2:
+            newIc = reflexaoHorizontal(ic);
+        break;
+    }
+
+    return newIc;
 
 }
+
 
 void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc){
 
@@ -223,7 +176,6 @@ void imprimir_icones(IconeArr *iconeArr){
         imprime_erro("NÃO HA ICONES CADASTRADOS.");
 
     }else{
-        setlocale(LC_ALL, "C");
 
         for(int i = 0; i < tam; i++){
 
@@ -234,7 +186,6 @@ void imprimir_icones(IconeArr *iconeArr){
 
         }
 
-        setlocale(LC_ALL, "Portuguese");
     }
 
 }
@@ -242,7 +193,7 @@ void imprimir_icones(IconeArr *iconeArr){
 void icone_salva(IconeArr *iconeArr, Icone *ic){
 
     if(ic == NULL){
-        printf("Erro ao salvar icone.");
+        imprime_erro("ERRO AO SALVAR O ICONE.");
         return;
     }else{
 
@@ -259,7 +210,7 @@ void icone_salva(IconeArr *iconeArr, Icone *ic){
         iconeArr->arr[tam] = ic;
         iconeArr->tam++;
 
-        printf("Icone salvo com sucesso!");
+        imprime_sucesso("ICONE SALVO COM SUCESSO!");
 
     }
 }

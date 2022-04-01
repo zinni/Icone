@@ -8,10 +8,15 @@
 #include "entidade.h"
 
 int menuPrincipal();
-void menu_principal(void);
 int menuCriar();
-void menu_criar(IconeArr *iconeArr);
 int menuCriarOutro();
+int menuSalvarOutro();
+int menuRotacionar();
+
+void menu_principal(void);
+void menu_criar(IconeArr *iconeArr);
 void menu_criar_usuario(IconeArr *iconeArr);
 void menu_criar_aleatorio(IconeArr *iconeArr);
 void menu_criar_reflexao(IconeArr *iconeArr);
+void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc);
+void menu_rotacionar(IconeArr *iconeArr);

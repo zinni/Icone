@@ -76,6 +76,44 @@ int menuReflexao(){
 
 }
 
+int menuSalvarOutro(){
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int opcao;
+
+    SetConsoleTextAttribute(hConsole, 11);
+    printf("\n\n\t 1. Salvar em um novo icone.");
+    printf("\n\t 2. Salvar sobrescrevendo o icone atual.");
+    printf("\n\t 0. Voltar ao menu principal");
+    SetConsoleTextAttribute(hConsole, 3);
+    printf("\n\n Entre com a opção desejada: ");
+    scanf("%d", &opcao);
+    return opcao;
+
+}
+
+int menuRotacionar(){
+
+    HANDLE  hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int opcao;
+
+
+    SetConsoleTextAttribute(hConsole, 1);
+    printf("\n\n                  ROTACIONAR");
+    printf("\n-------------------------------------------------");
+    SetConsoleTextAttribute(hConsole, 11);
+    printf("\n\n\t 1. Rotacionar em 90°.");
+    printf("\n\t 0. Voltar ao menu principal");
+    SetConsoleTextAttribute(hConsole, 3);
+    printf("\n\n Entre com a opção desejada: ");
+    scanf("%d", &opcao);
+    return opcao;
+
+}
+
 
 //PARTE LOGICA MENUS
 void menu_principal(void) {
@@ -102,6 +140,10 @@ void menu_principal(void) {
             case 4:
                 system("cls");
                 menu_criar_reflexao(iconeArr);
+                break;
+            case 5:
+                system("cls");
+                menu_rotacionar(iconeArr);
                 break;
             case 0:
                 printf("\n\n\nSaindo...\n\n");
@@ -200,7 +242,10 @@ void menu_criar_usuario(IconeArr *iconeArr) {
 }
 
 void menu_criar_reflexao(IconeArr *iconeArr) {
-    system("cls");
+
+    int codigo;
+
+    Icone *newIc;
 
     int opcao_menu = -1;
     while (opcao_menu != 0) {
@@ -208,10 +253,18 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
 
         switch(opcao_menu) {
             case 1:
-                icone_reflexao(iconeArr, 1);
-                break;
             case 2:
-                icone_reflexao(iconeArr, 2);
+                printf("Codigo do icone-> ");
+                scanf("%d", &codigo);
+                newIc = icone_reflexao(iconeArr, opcao_menu, codigo - 1);
+
+                if(newIc == NULL){
+                    system("cls");
+                    imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+                    break;
+                }
+
+                menu_salvar_outro(iconeArr, codigo - 1, newIc);
                 break;
             case 0:
                 system("cls");
@@ -221,4 +274,81 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
                 break;
         }
     }
+}
+
+void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
+
+
+
+    int opcao_menu = -1;
+
+    while (opcao_menu < 0 || opcao_menu > 2) {
+
+        system("cls");
+
+        icone_imprime(newIc);
+
+        opcao_menu = menuSalvarOutro();
+
+        switch(opcao_menu) {
+            case 1:
+                icone_salva(iconeArr, newIc);
+                break;
+            case 2:
+                substituir_icone(iconeArr, indice, newIc);
+                break;
+            case 0:
+                system("cls");
+                break;
+            default:
+                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                break;
+        }
+    }
+}
+
+void menu_rotacionar(IconeArr *iconeArr){
+
+    int codigo;
+
+    Icone *newIc;
+    Icone *ic;
+
+    int opcao_menu = -1;
+    while (opcao_menu != 0) {
+        opcao_menu = menuRotacionar();
+
+        switch(opcao_menu) {
+            case 1:
+                printf("Codigo do icone-> ");
+                scanf("%d", &codigo);
+                ic = buscar_icone(codigo - 1, iconeArr);
+
+                if(ic == NULL){
+                    system("cls");
+                    imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+                    break;
+                }
+
+                newIc = icone_rotaciona(ic);
+
+                if(newIc == NULL){
+
+                    system("cls");
+                    //imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+                    break;
+
+                }
+
+                menu_salvar_outro(iconeArr, codigo - 1, newIc);
+                break;
+            case 0:
+                system("cls");
+                break;
+            default:
+                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                break;
+        }
+    }
+
 }

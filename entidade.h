@@ -19,7 +19,7 @@ typedef struct _icone_arr {
 
 void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc);
 
-void icone_reflexao(IconeArr *iconeArr, int tipo);
+Icone* icone_reflexao(IconeArr *iconeArr, int tipo, int indice);
 
 void verificar_simetria(IconeArr *IconeArr);
 

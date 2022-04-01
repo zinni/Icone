@@ -1,18 +1,19 @@
 #include "menu.h"
 
 //INTERFACE DOS MENUS
-int menuPrincipal() {
+int menuPrincipal(){
+
     int opcao;
 
     mudar_cor(1);
-    printf("\n\n               GERADOR DE ICONES");
+    printf("\n\n               GERADOR DE ÍCONES");
     printf("\n-------------------------------------------------");
     mudar_cor(11);
-    printf("\n\n\t 1. Criar");
-    printf("\n\t 2. Mostrar Icones");
-    printf("\n\t 3. Verificar simetria.");
-    printf("\n\t 4. Reflexo no espelho.");
-    printf("\n\t 5. Rotacionar.");
+    printf("\n\n\t 1. Criar um novo ícone.");
+    printf("\n\t 2. Mostrar lista de ícones salvos.");
+    printf("\n\t 3. Verificar simetria em um ícone.");
+    printf("\n\t 4. Reflexão horizontal ou vertical..");
+    printf("\n\t 5. Rotacionar ícone em 90°.");
     printf("\n\t 6. Criar copia aumentada.");
     printf("\n\t 0. Sair do programa.");
     mudar_cor(3);
@@ -22,54 +23,48 @@ int menuPrincipal() {
 }
 
 int menuCriar(){
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     int opcao;
 
-    SetConsoleTextAttribute(hConsole, 1);
-    printf("\n\n        ESCOLHA A NATUREZA DO SEU ICONE");
+    mudar_cor(1);
+    printf("\n\n        ESCOLHA A NATUREZA DO SEU ÍCONE");
     printf("\n-------------------------------------------------");
-    SetConsoleTextAttribute(hConsole, 11);
-    printf("\n\n\t 1. Icone aleatório.");
-    printf("\n\t 2. Icone do usuário.");
-    printf("\n\t 0. Voltar ao menu principal");
-    SetConsoleTextAttribute(hConsole, 3);
+    mudar_cor(11);
+    printf("\n\n\t 1. Ícone aleatório.");
+    printf("\n\t 2. Ícone do usuário.");
+    printf("\n\t 0. Voltar ao menu principal.");
+    mudar_cor(3);
     printf("\n\n Entre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 }
 
 int menuCriarOutro(){
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     int opcao;
 
-    SetConsoleTextAttribute(hConsole, 11);
+    mudar_cor(11);
     printf("\n\n\t 1. Criar outro");
     printf("\n\t 2. Salvar");
     printf("\n\t 0. Voltar ao menu anterior.");
-    SetConsoleTextAttribute(hConsole, 3);
+    mudar_cor(3);
     printf("\n\n Entre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 }
 
 int menuReflexao(){
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     int opcao;
 
-    SetConsoleTextAttribute(hConsole, 1);
+    mudar_cor(1);
     printf("\n\n        ESCOLHA O TIPO DE REFLEXÃO");
     printf("\n-------------------------------------------------");
-    SetConsoleTextAttribute(hConsole, 11);
+    mudar_cor(11);
     printf("\n\n\t 1. Reflexão vertical.");
     printf("\n\t 2. Reflexão horizontal.");
     printf("\n\t 0. Voltar ao menu principal");
-    SetConsoleTextAttribute(hConsole, 3);
+    mudar_cor(3);
     printf("\n\n Entre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
@@ -77,16 +72,14 @@ int menuReflexao(){
 }
 
 int menuSalvarOutro(){
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     int opcao;
 
-    SetConsoleTextAttribute(hConsole, 11);
+    mudar_cor(11);
     printf("\n\n\t 1. Salvar em um novo icone.");
     printf("\n\t 2. Salvar sobrescrevendo o icone atual.");
     printf("\n\t 0. Voltar ao menu principal");
-    SetConsoleTextAttribute(hConsole, 3);
+    mudar_cor(3);
     printf("\n\n Entre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
@@ -95,19 +88,16 @@ int menuSalvarOutro(){
 
 int menuRotacionar(){
 
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
     int opcao;
 
 
-    SetConsoleTextAttribute(hConsole, 1);
+    mudar_cor(1);
     printf("\n\n                  ROTACIONAR");
     printf("\n-------------------------------------------------");
-    SetConsoleTextAttribute(hConsole, 11);
+    mudar_cor(11);
     printf("\n\n\t 1. Rotacionar em 90°.");
     printf("\n\t 0. Voltar ao menu principal");
-    SetConsoleTextAttribute(hConsole, 3);
+    mudar_cor(3);
     printf("\n\n Entre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
@@ -132,9 +122,11 @@ void menu_principal(void) {
             case 2:
                 system("cls");
                 imprimir_icones(iconeArr);
+                aperte_enter();
                 break;
             case 3:
                 system("cls");
+                imprimir_icones(iconeArr);
                 verificar_simetria(iconeArr);
                 break;
             case 4:
@@ -150,7 +142,7 @@ void menu_principal(void) {
                 exit(0);
                 break;
             default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
                 break;
         }
     }
@@ -173,7 +165,7 @@ void menu_criar(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
                 break;
         }
     }
@@ -204,7 +196,7 @@ void menu_criar_aleatorio(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
                 break;
         }
     }
@@ -235,7 +227,7 @@ void menu_criar_usuario(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
                 break;
         }
     }
@@ -254,13 +246,14 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
         switch(opcao_menu) {
             case 1:
             case 2:
-                printf("Codigo do icone-> ");
+                imprimir_icones(iconeArr);
+                printf("\nEntre com o index do ícone que deseja criar reflexão-> ");
                 scanf("%d", &codigo);
                 newIc = icone_reflexao(iconeArr, opcao_menu, codigo - 1);
 
                 if(newIc == NULL){
                     system("cls");
-                    imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+                    imprime_erro("ÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
                     break;
                 }
 
@@ -270,7 +263,7 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
                 break;
         }
     }
@@ -301,7 +294,7 @@ void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
                 system("cls");
                 break;
             default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
+                imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
                 break;
         }
     }
@@ -320,13 +313,15 @@ void menu_rotacionar(IconeArr *iconeArr){
 
         switch(opcao_menu) {
             case 1:
-                printf("Codigo do icone-> ");
+                system("cls");
+                imprimir_icones(iconeArr);
+                printf("\nEntre com o index do ícone que deseja rotacionar-> ");
                 scanf("%d", &codigo);
                 ic = buscar_icone(codigo - 1, iconeArr);
 
                 if(ic == NULL){
                     system("cls");
-                    imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+                    imprime_erro("ÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
                     break;
                 }
 

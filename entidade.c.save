@@ -54,97 +54,54 @@ void verificar_simetria(IconeArr *iconeArr){
 
     if(ic == NULL){
          system("cls");
-         imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+         imprime_erro("\tÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
     }else{
 
         if(icone_simetrico(ic) == 1){
 
-            printf("ICONE SIMETRICO.");
+            system("cls");
+            imprime_sucesso("\tÍCONE SIMÉTRICO.");
+            aperte_enter();
 
         }else{
-
-            printf("ICONE ASSIMETRICO.");
+            
+            system("cls");
+            imprime_erro("\tÍCONE ASSIMÉTRICO.");
+            aperte_enter();
 
         }
     }
 
 }
 
-//a variavel tipo é usada para indicar se é uma reflexão horizontal ou vertical
-void icone_reflexao(IconeArr *iconeArr, int tipo){
+//a variavel tipo é usada para indicar se é uma reflexão horizontal ou vertical/ indice = codigo - 1
+Icone* icone_reflexao(IconeArr *iconeArr, int tipo, int indice){
 
+    Icone *ic = buscar_icone(indice, iconeArr);
 
-    int codigo;
-    system("cls");
-    printf("Codigo do icone-> ");
-    scanf("%d", &codigo);
-
-    Icone *ic = buscar_icone(codigo - 1, iconeArr);
-
-    //printf("%d" , ic->tamanho);
     if(ic == NULL){
 
-        system("cls");
-        imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
 
-    }else{
-
-        Icone *newIc;
-
-        switch(tipo){
-            case 1:
-            newIc = reflexaoVertical(ic);
-            break;
-
-            case 2:
-            newIc = reflexaoHorizontal(ic);
-            break;
-        }
-
-        system("cls");
-        setlocale(LC_ALL, "C");
-        icone_imprime(newIc);
-        setlocale(LC_ALL, "Portuguese");
-
-        int opcao = -1;
-
-        while(opcao < 0 || opcao > 2){
-
-            mudar_cor(11);
-            printf("\n\n\t 1. Salvar como um novo icone baseado nessa reflexão.");
-            printf("\n\t 2. Salvar substituindo o icone refletido.");
-            printf("\n\t 0. Voltar ao menu anterior.");
-
-            mudar_cor(3);
-            printf("\n\n Entre com a opção desejada: ");
-            scanf("%d", &opcao);
-
-            switch(opcao){
-
-                case 1:
-                    icone_salva(iconeArr, newIc);
-                break;
-
-                case 2:
-                    substituir_icone(iconeArr, codigo - 1, newIc);
-                break;
-
-                case 0:
-                    system("cls");
-                break;
-
-                default:
-                    imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
-                break;
-
-            }
-
-        }
+        return ic;
 
     }
 
+    Icone *newIc;
+
+    switch(tipo){
+        case 1:
+            newIc = reflexaoVertical(ic);
+        break;
+
+        case 2:
+            newIc = reflexaoHorizontal(ic);
+        break;
+    }
+
+    return newIc;
 
 }
+
 
 void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc){
 
@@ -220,11 +177,12 @@ void imprimir_icones(IconeArr *iconeArr){
 
     if(tam <= 0){
 
-        imprime_erro("NÃO HA ICONES CADASTRADOS.");
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
 
     }else{
-        setlocale(LC_ALL, "C");
-
+        
+        
         for(int i = 0; i < tam; i++){
 
             printf("%d) " , i + 1);
@@ -234,7 +192,6 @@ void imprimir_icones(IconeArr *iconeArr){
 
         }
 
-        setlocale(LC_ALL, "Portuguese");
     }
 
 }
@@ -242,7 +199,7 @@ void imprimir_icones(IconeArr *iconeArr){
 void icone_salva(IconeArr *iconeArr, Icone *ic){
 
     if(ic == NULL){
-        printf("Erro ao salvar icone.");
+        imprime_erro("\tERRO AO SALVAR O ICONE.");
         return;
     }else{
 
@@ -259,8 +216,8 @@ void icone_salva(IconeArr *iconeArr, Icone *ic){
         iconeArr->arr[tam] = ic;
         iconeArr->tam++;
 
-        printf("Icone salvo com sucesso!");
-
+        imprime_sucesso("\tICONE SALVO COM SUCESSO!");
+        aperte_enter();
     }
 }
 
@@ -268,14 +225,15 @@ void icone_deletar(int indice, IconeArr *iconeArr){
 
     if(iconeArr->tam == 0){
 
-        printf("Não há icones salvos.");
+        imprime_erro("\tNão há icones salvos.");
 
     }else{
         icone_libera_memoria(iconeArr->arr[indice - 1]);
         iconeArr->arr[indice] = iconeArr->arr[iconeArr->tam - 1];
         iconeArr->tam--;
 
-        printf("Icone %d removido com sucesso!", indice);
+        imprime_sucesso("\tIcone removido com sucesso!");
+        aperte_enter();
     }
 }
 
@@ -402,6 +360,7 @@ void aperte_enter(){
     printf("\nPressione ENTER para continuar.");
     getchar();
     getchar();
+    system("cls");
 }
 
 void mudar_cor(int cor){

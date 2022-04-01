@@ -54,16 +54,20 @@ void verificar_simetria(IconeArr *iconeArr){
 
     if(ic == NULL){
          system("cls");
-         imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
+         imprime_erro("\tÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
     }else{
 
         if(icone_simetrico(ic) == 1){
 
-            printf("ICONE SIMETRICO.");
+            system("cls");
+            imprime_sucesso("\tÍCONE SIMÉTRICO.");
+            aperte_enter();
 
         }else{
 
-            printf("ICONE ASSIMETRICO.");
+            system("cls");
+            imprime_erro("\tÍCONE ASSIMÉTRICO.");
+            aperte_enter();
 
         }
     }
@@ -173,10 +177,15 @@ void imprimir_icones(IconeArr *iconeArr){
 
     if(tam <= 0){
 
-        imprime_erro("NÃO HA ICONES CADASTRADOS.");
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
 
     }else{
 
+        mudar_cor(1);
+        printf("\n\n              LISTA DE ÍCONES");
+        printf("\n-------------------------------------------------\n\n");
+        mudar_cor(11);
         for(int i = 0; i < tam; i++){
 
             printf("%d) " , i + 1);
@@ -193,7 +202,7 @@ void imprimir_icones(IconeArr *iconeArr){
 void icone_salva(IconeArr *iconeArr, Icone *ic){
 
     if(ic == NULL){
-        imprime_erro("ERRO AO SALVAR O ICONE.");
+        imprime_erro("\tERRO AO SALVAR O ICONE.");
         return;
     }else{
 
@@ -210,8 +219,8 @@ void icone_salva(IconeArr *iconeArr, Icone *ic){
         iconeArr->arr[tam] = ic;
         iconeArr->tam++;
 
-        imprime_sucesso("ICONE SALVO COM SUCESSO!");
-
+        imprime_sucesso("\tICONE SALVO COM SUCESSO!");
+        aperte_enter();
     }
 }
 
@@ -219,14 +228,15 @@ void icone_deletar(int indice, IconeArr *iconeArr){
 
     if(iconeArr->tam == 0){
 
-        printf("Não há icones salvos.");
+        imprime_erro("\tNão há icones salvos.");
 
     }else{
         icone_libera_memoria(iconeArr->arr[indice - 1]);
         iconeArr->arr[indice] = iconeArr->arr[iconeArr->tam - 1];
         iconeArr->tam--;
 
-        printf("Icone %d removido com sucesso!", indice);
+        imprime_sucesso("\tIcone removido com sucesso!");
+        aperte_enter();
     }
 }
 
@@ -353,6 +363,7 @@ void aperte_enter(){
     printf("\nPressione ENTER para continuar.");
     getchar();
     getchar();
+    system("cls");
 }
 
 void mudar_cor(int cor){

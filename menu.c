@@ -123,6 +123,7 @@ void menu_principal(void) {
             case 2:
                 system("cls");
                 imprimir_icones(iconeArr);
+                aperte_enter();
                 break;
             case 3:
                 system("cls");
@@ -137,10 +138,12 @@ void menu_principal(void) {
                 menu_criar_reflexao(iconeArr);
                 break;
             case 6:
+                system("cls");
                 interfaceRotacionar(iconeArr);
                 break;
             case 7:
                 system("cls");
+                interfaceDuplicar(iconeArr);
                 break;
             case 0:
                 printf("\n\n\nSaindo...\n\n");
@@ -193,7 +196,6 @@ void menu_criar_aleatorio(IconeArr *iconeArr) {
                 ic = criar_icone_randomico();
                 break;
             case 2:
-                system("cls");
                 icone_salva(iconeArr, ic);
                 break;
             case 0:
@@ -224,7 +226,6 @@ void menu_criar_usuario(IconeArr *iconeArr) {
                 ic = criar_icone_especi();
                 break;
             case 2:
-                system("cls");
                 icone_salva(iconeArr, ic);
                 break;
             case 0:
@@ -281,6 +282,7 @@ void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
 
         system("cls");
 
+        printf("\n\n");
         icone_imprime(newIc);
 
         opcao_menu = menuSalvarOutro();
@@ -455,3 +457,39 @@ void interfaceDeletar(IconeArr *iconeArr){
 
 }
 
+void interfaceDuplicar(IconeArr *iconeArr){
+
+    if(iconeArr->tam == 0){
+
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
+        return;
+
+    }
+
+    imprimir_icones(iconeArr);
+
+    int codigo, fator;
+
+    printf("Qual ícone deseja aumentar-> ");
+
+    scanf("%d", &codigo);
+
+    printf("Quantas vezes deseja aumentar o ícone, 2x ou 4x?");
+
+    scanf("%d", &fator);
+
+    Icone *ic = buscar_icone(codigo - 1, iconeArr);
+
+    if(ic == NULL){
+         system("cls");
+         imprime_erro("\tÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
+         return;
+    }
+
+    Icone *novo;
+
+    novo = icone_multiplicar_tamanho(ic, fator);
+
+    menu_salvar_outro(iconeArr, codigo - 1, novo);
+}

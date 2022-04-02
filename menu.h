@@ -25,3 +25,4 @@ void interfaceRotacionar(IconeArr *iconeArr);
 void interfaceRefletir(IconeArr *iconeArr, int tipo);
 void interfaceSimetria(IconeArr *iconeArr);
 void interfaceDeletar(IconeArr *iconeArr);
+void interfaceDuplicar(IconeArr *iconeArr);

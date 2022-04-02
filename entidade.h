@@ -16,6 +16,7 @@ typedef struct _icone_arr {
 
 } IconeArr;
 
+void icone_deletar(int indice, IconeArr *iconeArr);
 
 void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc);
 
@@ -46,6 +47,8 @@ int icone_simetricoHorizontal(Icone *ic);
 Icone* reflexaoVertical(Icone *ic);
 
 Icone* reflexaoHorizontal(Icone *ic);
+
+Icone * icone_multiplicar_tamanho(Icone *ic, int fator);
 
 void aperte_enter();
 

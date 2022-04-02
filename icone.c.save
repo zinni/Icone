@@ -1,5 +1,6 @@
 #include "icone.h"
 
+/*
 Icone* icone_cria(int tam){
 
 
@@ -15,10 +16,42 @@ Icone* icone_cria(int tam){
     }
 
     return ic;
+}*/
+
+//FU
+Icone * icone_cria(int tam) {
+    int i;
+    int **tempPP;
+    int *tempP;
+    Icone *ic = (Icone *)malloc(sizeof(Icone));
+    ic->tamanho = tam;
+    tempPP = (int **)malloc(sizeof(int *) * tam);
+    if(tempPP == NULL) {
+        printf("\nErro tentando criar icone.\n");
+        return NULL;
+    }
+    ic->pixels = tempPP;
+    for (i = 0; i < tam; i++) {
+        tempP = (int *)malloc(tam * sizeof(int));
+        if(tempP == NULL) {
+            printf("\nErro tentando criar icone.\n");
+            return NULL;
+        }
+        ic->pixels[i] = tempP;
+    }
+    return ic;
 }
 
 void icone_libera_memoria(Icone *ic){
 
+    int tam = ic->tamanho;
+
+    for(int i = 0; i < tam; i++){
+
+        free(ic->pixels[i]);
+    }
+
+    free(ic->pixels);
     free(ic);
 
 }
@@ -43,6 +76,7 @@ int icone_tam (Icone *ic){
     return tam;
 }
 
+
 void icone_preenche_aleatorio(Icone *ic){
 
     srand(time(NULL));
@@ -63,9 +97,11 @@ void icone_imprime(Icone *ic){
 
     int tam = ic->tamanho;
 
+    setlocale(LC_ALL, "C");
+
     for(int i = 0; i < tam ; i++){
 
-        printf("|");
+        printf("\t\t|");
 
         for(int j = 0; j < tam; j++){
 
@@ -73,15 +109,17 @@ void icone_imprime(Icone *ic){
 
             if(v == 1){
 
-              printf("%c", 219);
+              printf("%c%c", 219, 219);
 
             }else{
 
-              printf(" ");
+              printf("  ");
             }
         }
         printf("|\n");
     }
+
+    setlocale(LC_ALL, "Portuguese");
 
 }
 

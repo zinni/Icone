@@ -1,5 +1,6 @@
 #include "icone.h"
 
+/*
 Icone* icone_cria(int tam){
 
 
@@ -14,6 +15,30 @@ Icone* icone_cria(int tam){
 
     }
 
+    return ic;
+}*/
+
+//FUNçÂO DE CRIAR ICONE COM TESTE DE VALIDADE DE MEMÓRIA
+Icone * icone_cria(int tam) {
+    int i;
+    short int **tempPP;
+    short int *tempP;
+    Icone *ic = (Icone *)malloc(sizeof(Icone));
+    ic->tamanho = tam;
+    tempPP = (short int **)malloc(sizeof(short int *) * tam);
+    if(tempPP == NULL) {
+        printf("\nErro tentando criar icone.\n");
+        return NULL;
+    }
+    ic->pixels = tempPP;
+    for (i = 0; i < tam; i++) {
+        tempP = (short int *)malloc(tam * sizeof(short int));
+        if(tempP == NULL) {
+            printf("\nErro tentando criar icone.\n");
+            return NULL;
+        }
+        ic->pixels[i] = tempP;
+    }
     return ic;
 }
 

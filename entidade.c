@@ -49,6 +49,10 @@ void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc){
 
     iconeArr->arr[indice] = newIc;
 
+    system("cls");
+    imprime_sucesso("\tÍCONE SALVO COM SUCESSO!");
+    aperte_enter();
+
 }
 
 Icone* criar_icone_randomico() {
@@ -149,6 +153,7 @@ void icone_salva(IconeArr *iconeArr, Icone *ic){
         iconeArr->arr[tam] = ic;
         iconeArr->tam++;
 
+        system("cls");
         imprime_sucesso("\tICONE SALVO COM SUCESSO!");
         aperte_enter();
     }
@@ -266,7 +271,7 @@ Icone* reflexaoVertical(Icone* ic){
     return icon;
 }
 
-Icone* icone_duplicado(Icone *ic){
+Icone* icone_duplica(Icone *ic){
 
     int tam = icone_tam(ic) * 2;
     Icone *icon = icone_cria(tam);
@@ -275,6 +280,36 @@ Icone* icone_duplicado(Icone *ic){
 
     return icon;
 }
+
+
+Icone * icone_multiplicar_tamanho(Icone *ic, int fator) {
+    int novo_tamanho = icone_tam(ic) * fator;
+    int i, j, k, ultimo_indice;
+
+    Icone *novo = icone_cria(novo_tamanho);
+    for (i = icone_tam(ic)-1; i >= 0; i--) {
+        for (j = icone_tam(ic) - 1; j >= 0; j--)
+        {
+            ultimo_indice = (j+1) * fator -1;
+            for (k = 0; k < fator; k++)
+            {
+                if (ultimo_indice - k >= 0)
+                {
+                    int v = icone_acessa(ic ,i ,j);
+                    icone_atribui(novo ,i ,ultimo_indice - k,v);
+                }
+            }
+        }
+        ultimo_indice = (i+1) * fator -1;
+        for (k = 0; k < fator; k++) {
+            //MARRETA MARRETA MARRETA!!!!!
+            novo->pixels[ultimo_indice - k] = novo->pixels[i];
+        }
+    }
+
+    return novo;
+}
+
 
 //Essas duas funções dão cor padrão as mensagens de sucesso ou erro do programa.
 void imprime_erro(char erro[MSG_SIZE]) {
@@ -303,6 +338,7 @@ void aperte_enter(){
     system("cls");
 }
 
+//Facilita o uso de cores nos menus
 void mudar_cor(int cor){
 
     HANDLE  hConsole;

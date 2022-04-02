@@ -42,67 +42,6 @@ Icone* buscar_icone(int indice, IconeArr *iconeArr){
 
 }
 
-void verificar_simetria(IconeArr *iconeArr){
-
-    int codigo;
-
-    printf("Codigo do icone-> ");
-
-    scanf("%d", &codigo);
-
-    Icone *ic = buscar_icone(codigo - 1, iconeArr);
-
-    if(ic == NULL){
-         system("cls");
-         imprime_erro("\tÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
-    }else{
-
-        if(icone_simetrico(ic) == 1){
-
-            system("cls");
-            imprime_sucesso("\tÍCONE SIMÉTRICO.");
-            aperte_enter();
-
-        }else{
-
-            system("cls");
-            imprime_erro("\tÍCONE ASSIMÉTRICO.");
-            aperte_enter();
-
-        }
-    }
-
-}
-
-//a variavel tipo é usada para indicar se é uma reflexão horizontal ou vertical/ indice = codigo - 1
-Icone* icone_reflexao(IconeArr *iconeArr, int tipo, int indice){
-
-    Icone *ic = buscar_icone(indice, iconeArr);
-
-    if(ic == NULL){
-
-
-        return ic;
-
-    }
-
-    Icone *newIc;
-
-    switch(tipo){
-        case 1:
-            newIc = reflexaoVertical(ic);
-        break;
-
-        case 2:
-            newIc = reflexaoHorizontal(ic);
-        break;
-    }
-
-    return newIc;
-
-}
-
-
 void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc){
 
 
@@ -175,26 +114,17 @@ void imprimir_icones(IconeArr *iconeArr){
 
     int tam = iconeArr->tam;
 
-    if(tam <= 0){
 
-        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
-        aperte_enter();
+    mudar_cor(1);
+    printf("\n\n              LISTA DE ÍCONES");
+    printf("\n-------------------------------------------------\n\n");
+    mudar_cor(11);
 
-    }else{
+    for(int i = 0; i < tam; i++){
 
-        mudar_cor(1);
-        printf("\n\n              LISTA DE ÍCONES");
-        printf("\n-------------------------------------------------\n\n");
-        mudar_cor(11);
-        for(int i = 0; i < tam; i++){
-
-            printf("%d) " , i + 1);
-            icone_imprime(iconeArr->arr[i]);
-            printf("\n\n");
-
-
-        }
-
+        printf("%d) " , i + 1);
+        icone_imprime(iconeArr->arr[i]);
+        printf("\n\n");
     }
 
 }
@@ -226,16 +156,23 @@ void icone_salva(IconeArr *iconeArr, Icone *ic){
 
 void icone_deletar(int indice, IconeArr *iconeArr){
 
-    if(iconeArr->tam == 0){
+    if(indice > (iconeArr->tam - 1) || indice <  0){
 
-        imprime_erro("\tNão há icones salvos.");
+        imprime_erro("\tINDICE INVALIDO!");
 
     }else{
-        icone_libera_memoria(iconeArr->arr[indice - 1]);
-        iconeArr->arr[indice] = iconeArr->arr[iconeArr->tam - 1];
+        icone_libera_memoria(iconeArr->arr[indice]);
         iconeArr->tam--;
 
-        imprime_sucesso("\tIcone removido com sucesso!");
+        for(int i = indice; i < iconeArr->tam;i++){
+
+            iconeArr->arr[i] = iconeArr->arr[i + 1];
+
+        }
+        //iconeArr->arr[indice] = iconeArr->arr[iconeArr->tam - 1];
+
+
+        imprime_sucesso("\tÍCONE REMOVIDO COM SUCESSO!");
         aperte_enter();
     }
 }

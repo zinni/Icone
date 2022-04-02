@@ -19,4 +19,9 @@ void menu_criar_usuario(IconeArr *iconeArr);
 void menu_criar_aleatorio(IconeArr *iconeArr);
 void menu_criar_reflexao(IconeArr *iconeArr);
 void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc);
-void menu_rotacionar(IconeArr *iconeArr);
+
+
+void interfaceRotacionar(IconeArr *iconeArr);
+void interfaceRefletir(IconeArr *iconeArr, int tipo);
+void interfaceSimetria(IconeArr *iconeArr);
+void interfaceDeletar(IconeArr *iconeArr);

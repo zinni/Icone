@@ -11,10 +11,11 @@ int menuPrincipal(){
     mudar_cor(11);
     printf("\n\n\t 1. Criar um novo ícone.");
     printf("\n\t 2. Mostrar lista de ícones salvos.");
-    printf("\n\t 3. Verificar simetria em um ícone.");
-    printf("\n\t 4. Reflexão horizontal ou vertical..");
-    printf("\n\t 5. Rotacionar ícone em 90°.");
-    printf("\n\t 6. Criar copia aumentada.");
+    printf("\n\t 3. Apagar um ícone.");
+    printf("\n\t 4. Verificar simetria de um ícone.");
+    printf("\n\t 5. Reflexão horizontal ou vertical.");
+    printf("\n\t 6. Rotacionar ícone em 90°.");
+    printf("\n\t 7. Criar copia aumentada.");
     printf("\n\t 0. Sair do programa.");
     mudar_cor(3);
     printf("\n\n Entre com a opção desejada: ");
@@ -122,20 +123,24 @@ void menu_principal(void) {
             case 2:
                 system("cls");
                 imprimir_icones(iconeArr);
-                aperte_enter();
                 break;
             case 3:
                 system("cls");
-                imprimir_icones(iconeArr);
-                verificar_simetria(iconeArr);
+                interfaceDeletar(iconeArr);
                 break;
             case 4:
                 system("cls");
-                menu_criar_reflexao(iconeArr);
+                interfaceSimetria(iconeArr);
                 break;
             case 5:
                 system("cls");
-                menu_rotacionar(iconeArr);
+                menu_criar_reflexao(iconeArr);
+                break;
+            case 6:
+                interfaceRotacionar(iconeArr);
+                break;
+            case 7:
+                system("cls");
                 break;
             case 0:
                 printf("\n\n\nSaindo...\n\n");
@@ -235,9 +240,13 @@ void menu_criar_usuario(IconeArr *iconeArr) {
 
 void menu_criar_reflexao(IconeArr *iconeArr) {
 
-    int codigo;
+    if(iconeArr->tam == 0){
 
-    Icone *newIc;
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
+        return;
+
+    }
 
     int opcao_menu = -1;
     while (opcao_menu != 0) {
@@ -245,19 +254,10 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
 
         switch(opcao_menu) {
             case 1:
+                interfaceRefletir(iconeArr, opcao_menu);
+                break;
             case 2:
-                imprimir_icones(iconeArr);
-                printf("\nEntre com o index do ícone que deseja criar reflexão-> ");
-                scanf("%d", &codigo);
-                newIc = icone_reflexao(iconeArr, opcao_menu, codigo - 1);
-
-                if(newIc == NULL){
-                    system("cls");
-                    imprime_erro("ÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
-                    break;
-                }
-
-                menu_salvar_outro(iconeArr, codigo - 1, newIc);
+                interfaceRefletir(iconeArr, opcao_menu);
                 break;
             case 0:
                 system("cls");
@@ -269,6 +269,8 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
     }
 }
 
+
+//um submenu para o usuario ter a opção de substituir o icone ou salvar em um novo icone
 void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
 
 
@@ -300,50 +302,156 @@ void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
     }
 }
 
-void menu_rotacionar(IconeArr *iconeArr){
+
+
+//Para não deixar esse codigo todo dentro do menuPrincipal, criei essa função
+void interfaceRotacionar(IconeArr *iconeArr){
+
+     system("cls");
+     if(iconeArr->tam == 0){
+
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
+        return;
+
+    }
 
     int codigo;
 
     Icone *newIc;
     Icone *ic;
 
-    int opcao_menu = -1;
-    while (opcao_menu != 0) {
-        opcao_menu = menuRotacionar();
+    imprimir_icones(iconeArr);
 
-        switch(opcao_menu) {
-            case 1:
-                system("cls");
-                imprimir_icones(iconeArr);
-                printf("\nEntre com o index do ícone que deseja rotacionar-> ");
-                scanf("%d", &codigo);
-                ic = buscar_icone(codigo - 1, iconeArr);
+    printf("\nEntre com o index do ícone que deseja rotacionar-> ");
+    scanf("%d", &codigo);
+    ic = buscar_icone(codigo - 1, iconeArr);
 
-                if(ic == NULL){
-                    system("cls");
-                    imprime_erro("ÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
-                    break;
-                }
-
-                newIc = icone_rotaciona(ic);
-
-                if(newIc == NULL){
-
-                    system("cls");
-                    //imprime_erro("ICONE NÃO ENCONTRADO, VERIFIQUE O CODIGO E TENTE NOVAMENTE.");
-                    break;
-
-                }
-
-                menu_salvar_outro(iconeArr, codigo - 1, newIc);
-                break;
-            case 0:
-                system("cls");
-                break;
-            default:
-                imprime_erro("ESCOLHA INVALIDADE TENTE NOVAMENTE.");
-                break;
-        }
+    if(ic == NULL){
+       system("cls");
+       imprime_erro("ÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
+       return;
     }
 
+    newIc = icone_rotaciona(ic);
+
+    if(newIc == NULL){
+
+        system("cls");
+        imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, FECHE ALGUM PROGRAMA E TENTE NOVAMENTE.");
+        return;
+
+     }
+
+     menu_salvar_outro(iconeArr, codigo - 1, newIc);
+
+
 }
+
+void interfaceRefletir(IconeArr *iconeArr, int tipo){
+
+    imprimir_icones(iconeArr);
+
+    int codigo;
+
+    printf("\nEntre com o codigo do ícone que deseja criar reflexão-> ");
+    scanf("%d", &codigo);
+
+    Icone *ic = buscar_icone(codigo - 1, iconeArr);
+
+
+    if(ic == NULL){
+        system("cls");
+        imprime_erro("ÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
+        return;
+    }
+
+
+    Icone *newIc;
+
+    switch(tipo){
+        case 1:
+            newIc = reflexaoVertical(ic);
+            break;
+
+        case 2:
+            newIc = reflexaoHorizontal(ic);
+            break;
+    }
+
+    if(newIc == NULL){
+
+        system("cls");
+        imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, PORFAVOR FECHE ALGUM PROCESSO OU APAGUE ALGUM ÍCONE.");
+        return;
+
+    }
+
+    menu_salvar_outro(iconeArr, codigo - 1, newIc);
+
+}
+
+void interfaceSimetria(IconeArr *iconeArr){
+
+    if(iconeArr->tam == 0){
+
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
+        return;
+
+    }
+
+    imprimir_icones(iconeArr);
+
+    int codigo;
+
+    printf("Codigo do icone-> ");
+
+    scanf("%d", &codigo);
+
+    Icone *ic = buscar_icone(codigo - 1, iconeArr);
+
+    if(ic == NULL){
+         system("cls");
+         imprime_erro("\tÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
+         return;
+    }
+
+
+    system("cls");
+    printf("ÍCONE %s", icone_simetrico(ic) == 1 ? "SIMÉTRICO" : "ASSIMÉTRICO");
+    aperte_enter();
+
+
+}
+
+void interfaceDeletar(IconeArr *iconeArr){
+
+    if(iconeArr->tam == 0){
+
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        aperte_enter();
+        return;
+
+    }
+
+    imprimir_icones(iconeArr);
+
+    int codigo;
+
+    printf("Codigo do icone-> ");
+
+    scanf("%d", &codigo);
+
+    Icone *ic = buscar_icone(codigo - 1, iconeArr);
+
+    if(ic == NULL){
+         system("cls");
+         imprime_erro("\tÍCONE NÃO ENCONTRADO, VERIFIQUE O CÓDIGO E TENTE NOVAMENTE.");
+         return;
+    }
+
+    icone_deletar(codigo - 1, iconeArr);
+
+}
+

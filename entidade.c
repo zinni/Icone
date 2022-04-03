@@ -65,6 +65,11 @@ Icone* criar_icone_randomico() {
     scanf("%d", &tam);
     Icone *ic;
     ic = icone_cria(tam);
+
+    if(ic == NULL){
+        return NULL;
+    }
+
     icone_preenche_aleatorio(ic);
     setlocale(LC_ALL, "C");
     printf("\n\n");
@@ -84,6 +89,10 @@ Icone* criar_icone_especi(){
     printf("\nEntre com o tamanho do ícone: ");
     scanf("%d", &tam);
     Icone *ic = icone_cria(tam);
+
+    if(ic == NULL){
+        return NULL;
+    }
     setlocale(LC_ALL, "C");
 
     for(int i = 0; i < tam; i++){
@@ -179,7 +188,7 @@ void icone_deletar(int indice, IconeArr *iconeArr){
         }
         //iconeArr->arr[indice] = iconeArr->arr[iconeArr->tam - 1];
 
-
+        system("cls");
         imprime_sucesso("\tÍCONE REMOVIDO COM SUCESSO!");
         aperte_enter();
     }
@@ -247,6 +256,10 @@ Icone* reflexaoHorizontal(Icone* ic){
     int tam = icone_tam(ic);
     Icone *icon = icone_cria(tam);
 
+    if(icon == NULL){
+        return NULL;
+    }
+
     for(int i = 0; i < tam; i++){
         for(int j = 0; j < tam; j++){
            int v = icone_acessa(ic ,i ,j);
@@ -262,6 +275,10 @@ Icone* reflexaoVertical(Icone* ic){
     int tam = icone_tam(ic);
     Icone *icon = icone_cria(tam);
 
+     if(icon == NULL){
+        return NULL;
+     }
+
     for(int i = 0; i < tam; i++){
         for(int j = 0; j < tam; j++){
 
@@ -274,71 +291,43 @@ Icone* reflexaoVertical(Icone* ic){
     return icon;
 }
 
-Icone* icone_duplica(Icone *ic){
-
-    int tam = icone_tam(ic) * 2;
-    Icone *icon = icone_cria(tam);
-
-
-
-    return icon;
-}
-
-
 Icone * icone_multiplicar_tamanho(Icone *ic, int fator) {
-    int novo_tamanho = icone_tam(ic) * fator;
-    int i, j, k, ultimo_indice;
+    int tam = icone_tam(ic);
+    int novoTam =  tam * fator;
 
-    Icone *novo = icone_cria(novo_tamanho);
-    for (i = icone_tam(ic)-1; i >= 0; i--) {
-        for (j = icone_tam(ic) - 1; j >= 0; j--)
-        {
-            ultimo_indice = (j+1) * fator -1;
-            for (k = 0; k < fator; k++)
-            {
-                if (ultimo_indice - k >= 0)
-                {
-                    int v = icone_acessa(ic ,i ,j);
-                    icone_atribui(novo ,i ,ultimo_indice - k,v);
-                }
-            }
-        }
-        ultimo_indice = (i+1) * fator -1;
-        for (k = 0; k < fator; k++) {
-            //MARRETA MARRETA MARRETA!!!!!
-            novo->pixels[ultimo_indice - k] = novo->pixels[i];
-        }
+    Icone *newIc = icone_cria(novoTam);
+
+    if(newIc == NULL){
+        return NULL;
     }
 
-    return novo;
+
+    for (int i = 0; i < tam; i++) {
+
+        for (int j = 0; j < tam; j++){
+
+            int v = icone_acessa(ic, i, j);
+
+            for(int k = fator * i; k < fator * (i + 1); k++){
+
+                for(int l = fator * j; l < fator * (j + 1); l++){
+
+
+                     icone_atribui(newIc, k, l, v);
+
+
+                }
+            }
+
+        }
+
+    }
+
+    return newIc;
 }
 
 
-//Essas duas funções dão cor padrão as mensagens de sucesso ou erro do programa.
-void imprime_erro(char erro[MSG_SIZE]) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 4);
-    printf("\n%s\n", erro);
-}
-
-void imprime_sucesso(char sucesso[MSG_SIZE]) {
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 10);
-    printf("\n%s\n", sucesso);
-}
-
-//Congela a tela esperando input do usuario.
-void aperte_enter(){
-    HANDLE  hConsole;
-    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, 8);
-    printf("\nPressione ENTER para continuar.");
-    getchar();
-    getchar();
-    system("cls");
-}
+////////////////////////////////////////UTILS////////////////////////////////////
 
 //Facilita o uso de cores nos menus
 void mudar_cor(int cor){
@@ -354,4 +343,28 @@ void cor_padrao(){
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 7);
 
+}
+
+
+//Essas duas funções dão cor padrão as mensagens de sucesso ou erro do programa.
+void imprime_erro(char erro[MSG_SIZE]) {
+
+    mudar_cor(4);
+    printf("\n%s\n", erro);
+}
+
+void imprime_sucesso(char sucesso[MSG_SIZE]) {
+
+    mudar_cor(10);
+    printf("\n%s\n", sucesso);
+}
+
+//Congela a tela esperando input do usuario.
+void aperte_enter(){
+
+    mudar_cor(8);
+    printf("\nPressione ENTER para continuar.");
+    getchar();
+    getchar();
+    system("cls");
 }

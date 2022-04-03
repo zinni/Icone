@@ -198,6 +198,12 @@ void menu_criar_aleatorio(IconeArr *iconeArr) {
                 system("cls");
                 icone_libera_memoria(ic);
                 ic = criar_icone_randomico();
+                if(ic == NULL){
+                   system("cls");
+                   imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, FECHE ALGUM PROGRAMA E TENTE NOVAMENTE.");
+                   aperte_enter();
+                   return;
+                }
                 break;
             case 2:
                 icone_salva(iconeArr, ic);
@@ -230,6 +236,15 @@ void menu_criar_usuario(IconeArr *iconeArr) {
                 system("cls");
                 icone_libera_memoria(ic);
                 ic = criar_icone_especi();
+
+                if(ic == NULL){
+
+                   system("cls");
+                   imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, FECHE ALGUM PROGRAMA E TENTE NOVAMENTE.");
+                   aperte_enter();
+                   return;
+
+                }
                 break;
             case 2:
                 icone_salva(iconeArr, ic);
@@ -351,6 +366,7 @@ void interfaceRotacionar(IconeArr *iconeArr){
 
         system("cls");
         imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, FECHE ALGUM PROGRAMA E TENTE NOVAMENTE.");
+        aperte_enter();
         return;
 
      }
@@ -395,7 +411,8 @@ void interfaceRefletir(IconeArr *iconeArr, int tipo){
     if(newIc == NULL){
 
         system("cls");
-        imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, PORFAVOR FECHE ALGUM PROCESSO OU APAGUE ALGUM ÍCONE.");
+        imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, FECHE ALGUM PROGRAMA E TENTE NOVAMENTE.");
+        aperte_enter();
         return;
 
     }
@@ -486,9 +503,6 @@ void interfaceDuplicar(IconeArr *iconeArr){
 
     scanf("%d", &codigo);
 
-    printf("Quantas vezes deseja aumentar o ícone?");
-
-    scanf("%d", &fator);
 
     Icone *ic = buscar_icone(codigo - 1, iconeArr);
 
@@ -498,9 +512,24 @@ void interfaceDuplicar(IconeArr *iconeArr){
          return;
     }
 
+    printf("Quantas vezes deseja aumentar o ícone?");
+
+    scanf("%d", &fator);
+
+
     Icone *novo;
 
     novo = icone_multiplicar_tamanho(ic, fator);
+
+    if(novo == NULL){
+
+        system("cls");
+        imprime_erro("NÃO HÁ MEMORIA SUFICIENTE, FECHE ALGUM PROGRAMA E TENTE NOVAMENTE.");
+        aperte_enter();
+        return;
+
+
+    }
 
     menu_salvar_outro(iconeArr, codigo - 1, novo, ic);
 }

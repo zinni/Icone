@@ -6,17 +6,25 @@ Icone * icone_cria(int tam) {
     short int **tempPP;
     short int *tempP;
     Icone *ic = (Icone *)malloc(sizeof(Icone));
+
+    if(ic == NULL){
+        return NULL;
+    }
+
     ic->tamanho = tam;
     tempPP = (short int **)malloc(sizeof(short int *) * tam);
     if(tempPP == NULL) {
-        printf("\nErro tentando criar icone.\n");
+        //printf("\nErro tentando criar icone.\n");
+        free(ic);
         return NULL;
     }
     ic->pixels = tempPP;
     for (i = 0; i < tam; i++) {
         tempP = (short int *)malloc(tam * sizeof(short int));
         if(tempP == NULL) {
-            printf("\nErro tentando criar icone.\n");
+            //printf("\nErro tentando criar icone.\n");
+            free(ic);
+            free(ic->pixels);
             return NULL;
         }
         ic->pixels[i] = tempP;
@@ -109,6 +117,10 @@ Icone* icone_copia(Icone *ic){
 
     Icone *icon = icone_cria(ic->tamanho);
 
+    if(icon == NULL){
+        return NULL;
+    }
+
     for(int i = 0;i < icon->tamanho; i++){
         for(int j = 0;j < icon->tamanho; j++){
 
@@ -126,6 +138,10 @@ Icone* icone_rotaciona(Icone *ic1){
     int tam = ic1->tamanho;
 
     Icone *ic = icone_cria(tam);
+
+    if(ic == NULL){
+        return NULL;
+    }
 
     for(int i = 0;i < tam; i++){
         for(int j = 0;j < tam; j++){

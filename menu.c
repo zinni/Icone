@@ -9,16 +9,16 @@ int menuPrincipal(){
     printf("\n\n               GERADOR DE ÍCONES");
     printf("\n-------------------------------------------------");
     mudar_cor(11);
-    printf("\n\n\t 1. Criar um novo ícone.");
-    printf("\n\t 2. Mostrar lista de ícones salvos.");
-    printf("\n\t 3. Apagar um ícone.");
-    printf("\n\t 4. Verificar simetria de um ícone.");
-    printf("\n\t 5. Reflexão horizontal ou vertical.");
-    printf("\n\t 6. Rotacionar ícone em 90°.");
-    printf("\n\t 7. Criar copia aumentada.");
-    printf("\n\t 0. Sair do programa.");
+    printf("\n\n\t1. Criar um novo ícone.");
+    printf("\n\t2. Mostrar lista de ícones salvos.");
+    printf("\n\t3. Apagar um ícone.");
+    printf("\n\t4. Verificar simetria de um ícone.");
+    printf("\n\t5. Reflexão horizontal ou vertical.");
+    printf("\n\t6. Rotacionar ícone em 90°.");
+    printf("\n\t7. Criar copia aumentada.");
+    printf("\n\t0. Sair do programa.");
     mudar_cor(3);
-    printf("\n\n Entre com a opção desejada: ");
+    printf("\n\nEntre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 }
@@ -31,11 +31,11 @@ int menuCriar(){
     printf("\n\n        ESCOLHA A NATUREZA DO SEU ÍCONE");
     printf("\n-------------------------------------------------");
     mudar_cor(11);
-    printf("\n\n\t 1. Ícone aleatório.");
-    printf("\n\t 2. Ícone do usuário.");
-    printf("\n\t 0. Voltar ao menu principal.");
+    printf("\n\n\t1. Ícone aleatório.");
+    printf("\n\t2. Ícone do usuário.");
+    printf("\n\t0. Voltar ao menu principal.");
     mudar_cor(3);
-    printf("\n\n Entre com a opção desejada: ");
+    printf("\n\nEntre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 }
@@ -45,11 +45,11 @@ int menuCriarOutro(){
     int opcao;
 
     mudar_cor(11);
-    printf("\n\n\t 1. Criar outro");
-    printf("\n\t 2. Salvar");
-    printf("\n\t 0. Voltar ao menu anterior.");
+    printf("\n\n\t 1.Criar outro");
+    printf("\n\t 2.Salvar");
+    printf("\n\t 0.Voltar ao menu anterior.");
     mudar_cor(3);
-    printf("\n\n Entre com a opção desejada: ");
+    printf("\n\nEntre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 }
@@ -62,11 +62,11 @@ int menuReflexao(){
     printf("\n\n        ESCOLHA O TIPO DE REFLEXÃO");
     printf("\n-------------------------------------------------");
     mudar_cor(11);
-    printf("\n\n\t 1. Reflexão vertical.");
-    printf("\n\t 2. Reflexão horizontal.");
-    printf("\n\t 0. Voltar ao menu principal");
+    printf("\n\n\t1. Reflexão vertical.");
+    printf("\n\t2. Reflexão horizontal.");
+    printf("\n\t0. Voltar ao menu principal");
     mudar_cor(3);
-    printf("\n\n Entre com a opção desejada: ");
+    printf("\n\nEntre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 
@@ -77,11 +77,11 @@ int menuSalvarOutro(){
     int opcao;
 
     mudar_cor(11);
-    printf("\n\n\t 1. Salvar em um novo icone.");
-    printf("\n\t 2. Salvar sobrescrevendo o icone atual.");
-    printf("\n\t 0. Voltar ao menu principal");
+    printf("\n\n\t1. Salvar em um novo icone.");
+    printf("\n\t2. Salvar sobrescrevendo o icone atual.");
+    printf("\n\t0. Voltar ao menu principal");
     mudar_cor(3);
-    printf("\n\n Entre com a opção desejada: ");
+    printf("\n\nEntre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 
@@ -96,10 +96,10 @@ int menuRotacionar(){
     printf("\n\n                  ROTACIONAR");
     printf("\n-------------------------------------------------");
     mudar_cor(11);
-    printf("\n\n\t 1. Rotacionar em 90°.");
-    printf("\n\t 0. Voltar ao menu principal");
+    printf("\n\n\t1. Rotacionar em 90°.");
+    printf("\n\t0. Voltar ao menu principal");
     mudar_cor(3);
-    printf("\n\n Entre com a opção desejada: ");
+    printf("\n\nEntre com a opção desejada: ");
     scanf("%d", &opcao);
     return opcao;
 
@@ -150,7 +150,9 @@ void menu_principal(void) {
                 exit(0);
                 break;
             default:
+                system("cls");
                 imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
+                aperte_enter();
                 break;
         }
     }
@@ -173,7 +175,9 @@ void menu_criar(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
+                system("cls");
                 imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
+                aperte_enter();
                 break;
         }
     }
@@ -203,7 +207,9 @@ void menu_criar_aleatorio(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
+                system("cls");
                 imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
+                aperte_enter();
                 break;
         }
     }
@@ -233,7 +239,9 @@ void menu_criar_usuario(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
+                system("cls");
                 imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
+                aperte_enter();
                 break;
         }
     }
@@ -264,7 +272,9 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
                 system("cls");
                 break;
             default:
+                system("cls");
                 imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
+                aperte_enter();
                 break;
         }
     }
@@ -272,17 +282,16 @@ void menu_criar_reflexao(IconeArr *iconeArr) {
 
 
 //um submenu para o usuario ter a opção de substituir o icone ou salvar em um novo icone
-void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
-
-
+void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc, Icone *ic) {
 
     int opcao_menu = -1;
 
     while (opcao_menu < 0 || opcao_menu > 2) {
 
         system("cls");
-
-        printf("\n\n");
+        printf("\n\t--- ìcone original ---\n\n");
+        icone_imprime(ic);
+        printf("\n\t-- ìcone modificado --\n\n");
         icone_imprime(newIc);
 
         opcao_menu = menuSalvarOutro();
@@ -298,12 +307,13 @@ void menu_salvar_outro(IconeArr *iconeArr, int indice, Icone *newIc) {
                 system("cls");
                 break;
             default:
+                system("cls");
                 imprime_erro("ESCOLHA INVÁLIDA TENTE NOVAMENTE.");
+                aperte_enter();
                 break;
         }
     }
 }
-
 
 
 //Para não deixar esse codigo todo dentro do menuPrincipal, criei essa função
@@ -325,7 +335,7 @@ void interfaceRotacionar(IconeArr *iconeArr){
 
     imprimir_icones(iconeArr);
 
-    printf("\nEntre com o index do ícone que deseja rotacionar-> ");
+    printf("\nEntre com o código do ícone que deseja rotacionar -> ");
     scanf("%d", &codigo);
     ic = buscar_icone(codigo - 1, iconeArr);
 
@@ -345,18 +355,19 @@ void interfaceRotacionar(IconeArr *iconeArr){
 
      }
 
-     menu_salvar_outro(iconeArr, codigo - 1, newIc);
+     menu_salvar_outro(iconeArr, codigo - 1, newIc, ic);
 
 
 }
 
 void interfaceRefletir(IconeArr *iconeArr, int tipo){
 
+    system("cls");
     imprimir_icones(iconeArr);
 
     int codigo;
 
-    printf("\nEntre com o codigo do ícone que deseja criar reflexão-> ");
+    printf("\nEntre com o código do ícone que deseja criar reflexão-> ");
     scanf("%d", &codigo);
 
     Icone *ic = buscar_icone(codigo - 1, iconeArr);
@@ -389,7 +400,7 @@ void interfaceRefletir(IconeArr *iconeArr, int tipo){
 
     }
 
-    menu_salvar_outro(iconeArr, codigo - 1, newIc);
+    menu_salvar_outro(iconeArr, codigo - 1, newIc, ic);
 
 }
 
@@ -407,7 +418,7 @@ void interfaceSimetria(IconeArr *iconeArr){
 
     int codigo;
 
-    printf("Codigo do icone-> ");
+    printf("Entre o código do ícone que deseja verificar simetria -> ");
 
     scanf("%d", &codigo);
 
@@ -441,7 +452,7 @@ void interfaceDeletar(IconeArr *iconeArr){
 
     int codigo;
 
-    printf("Codigo do icone-> ");
+    printf("Entre com código do ícone que deseja deletar -> ");
 
     scanf("%d", &codigo);
 
@@ -471,11 +482,11 @@ void interfaceDuplicar(IconeArr *iconeArr){
 
     int codigo, fator;
 
-    printf("Qual ícone deseja aumentar-> ");
+    printf("Entre com o código do ícone que deseja aumentar -> ");
 
     scanf("%d", &codigo);
 
-    printf("Quantas vezes deseja aumentar o ícone, 2x ou 4x?");
+    printf("Quantas vezes deseja aumentar o ícone?");
 
     scanf("%d", &fator);
 
@@ -491,5 +502,5 @@ void interfaceDuplicar(IconeArr *iconeArr){
 
     novo = icone_multiplicar_tamanho(ic, fator);
 
-    menu_salvar_outro(iconeArr, codigo - 1, novo);
+    menu_salvar_outro(iconeArr, codigo - 1, novo, ic);
 }

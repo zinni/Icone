@@ -57,6 +57,10 @@ void substituir_icone(IconeArr *iconeArr, int indice, Icone *newIc){
 
 Icone* criar_icone_randomico() {
     int tam;
+    mudar_cor(1);
+    printf("\n\n               ÍCONE ALEATÓRIO");
+    printf("\n-------------------------------------------------\n");
+    mudar_cor(11);
     printf("\nEntre com o tamanho do ícone: ");
     scanf("%d", &tam);
     Icone *ic;
@@ -75,9 +79,9 @@ Icone* criar_icone_especi(){
 
     mudar_cor(1);
     printf("\n\n              ICONE DO USUÁRIO");
-    printf("\n-------------------------------------------------");
+    printf("\n-------------------------------------------------\n");
     mudar_cor(11);
-    printf("\n\nEntre com o tamanho do ícone: ");
+    printf("\nEntre com o tamanho do ícone: ");
     scanf("%d", &tam);
     Icone *ic = icone_cria(tam);
     setlocale(LC_ALL, "C");
@@ -90,7 +94,7 @@ Icone* criar_icone_especi(){
 
             do{
                 printf("\nUse <1> para marcar e <0> para deixar vazio.");
-                printf("\nAtribuir valor para o pixel[%d][%d]: ", i,j);
+                printf("\nAtribuir valor para a Linha [%d] e coluna [%d]: ", i+1,j+1);
                 scanf("%d", &v);
             }while(v < 0 || v > 1);
 
@@ -101,14 +105,9 @@ Icone* criar_icone_especi(){
             printf("\t--------PREVIEW--------\n\n");
 
             icone_imprime(ic);
-
-            printf("\n\n");
-
        }
 
     }
-
-    printf("\n\n");
     setlocale(LC_ALL, "Portuguese");
     return ic;
 }
@@ -118,6 +117,10 @@ void imprimir_icones(IconeArr *iconeArr){
 
     int tam = iconeArr->tam;
 
+    if(iconeArr->tam == 0){
+        imprime_erro("\tNÃO HA ICONES CADASTRADOS.");
+        return;
+    }
 
     mudar_cor(1);
     printf("\n\n              LISTA DE ÍCONES");
@@ -324,7 +327,6 @@ void imprime_sucesso(char sucesso[MSG_SIZE]) {
     hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, 10);
     printf("\n%s\n", sucesso);
-    SetConsoleTextAttribute(hConsole, 7);
 }
 
 //Congela a tela esperando input do usuario.
